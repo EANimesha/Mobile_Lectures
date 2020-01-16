@@ -3,6 +3,7 @@ import {AppRegistry, FlatList, StyleSheet,Text,View,Image, Alert, TouchableHighl
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 import AddModal from './AddModel';
+import EditModal from './EditModal';
 
 class FlatListItem extends Component{
     constructor(props) {
@@ -24,6 +25,13 @@ class FlatListItem extends Component{
                 this.setState({activeRowId:this.props.item.id});
             },
             right:[
+                {
+                    onPress:()=>{
+                        // alert("Update");
+                        this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index],this)
+                    },
+                    text:'Edit',type:'primary'
+                },
                 {
                     onPress:()=>{
                         const deletingRow=this.state.activeRowId;
@@ -62,8 +70,8 @@ class FlatListItem extends Component{
                 flex:1,
                 flexDirection:'column'
             }}>
-            <Text style={styles.flatListItem} style={{color:'black'}}>{this.props.item.title.toString()}</Text>
-            <Text style={styles.flatListItem}>{this.props.item.body.toString()}</Text> 
+            <Text style={styles.flatListItem} style={{color:'black'}}>{this.props.item.title}</Text>
+            <Text style={styles.flatListItem}>{this.props.item.body}</Text> 
             </View>
             </View>
             </Swipeout>
@@ -123,6 +131,8 @@ export class BasicFlatList extends Component {
                 </FlatList>
                 <AddModal
                 ref={'addModal'} parentFlatList={this}></AddModal>
+                <EditModal
+                ref={'editModal'} parentFlatList={this}></EditModal>
             </View>
         )
     }

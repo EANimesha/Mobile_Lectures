@@ -5,18 +5,24 @@ import flatListData from '../data/flatListData';
 
 
 var screen=Dimensions.get('window');
-class AddModal extends Component {
+class EditModal extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-             newPostTitle:'',
-             newPostBody:''
+             PostTitle:'',
+             PostBody:''
         }
     }
     
 
-  showAddModal=()=>{
+  showEditModal=(editingPost,flatListItem)=>{
+      this.setState({
+          id:editingPost.id,
+          title:editingPost.title,
+          body:editingPost.body,
+          flatListItem:flatListItem
+      });
     this.refs.myModal.open();
   }
   render() {
@@ -35,31 +41,30 @@ class AddModal extends Component {
           alert("modal Closed");
       }}
       >
-        <Text>New Post Information</Text>
+        <Text> Post Information</Text>
         <TextInput
-            onChangeText={(text)=>this.setState({newPostTitle:text})}
+            onChangeText={(text)=>this.setState({PostTitle:text})}
             placeholder="Enter post title"
-            value={this.state.newPostTitle}
+            value={this.state.PostTitle}
         />
         <TextInput
-            onChangeText={(text)=>this.setState({newPostBody:text})}
+            onChangeText={(text)=>this.setState({PostBody:text})}
             placeholder="Enter post body"
-            value={this.state.newPostBody}
+            value={this.state.PostBody}
         />
         <Button
         title="Save"
         onPress={()=>{
-            if(this.state.newPostTitle.length==0 || this.state.newPostBody.length==0){
+            if(this.state.PostTitle.length==0 || this.state.PostBody.length==0){
                 alert("You must enter posts title and body");
                 return;
             }
-            const newPost={
-                key:"",
-                title:this.state.newPostTitle,
-                body:this.state.newPostBody,
-                image:"https://purepng.com/public/uploads/large/purepng.com-christmas-golden-bellbellchristmas-bellgolden-bellred-decorated-1421526586733f7arh.png"
-            };
-            flatListData.push(newPost);
+            var foundIndex=flatListData.findIndex(item=>this.state.id==item.id);
+            if(foundIndex<0){
+                return
+            }
+            flatListData[foundIndex].title=this.state.PostTitle;
+            flatListData[foundIndex].body=this.state.PostBody;
             this.refs.myModal.close()
         }}></Button>
       </Modal>
@@ -67,4 +72,4 @@ class AddModal extends Component {
   }
 }
 
-export default AddModal;
+export default EditModal;
