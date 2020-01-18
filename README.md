@@ -14,10 +14,11 @@ collection of kotlin, flutter,react native inclass projects
 5. Send name,Age,Address from textfields to a given endpoint on submit button click , and show a response message as success
 
 # 2019/12/7
-1.  Android Room Database Example – Building a Todo App -  https://www.simplifiedcoding.net/android-room-database-example/
-2. Send Notification On button Click
-3. Use google map and show the current location - https://www.techotopia.com/index.php/An_Android_8_Notifications_Kotlin_Tutorial
-4. Create Android Push Notification Easily with Kotlin and Firebase Cloud Messaging  -https://medium.com/@lobothijau/create-android-push-notification-easily-with-kotlin-and-firebase-cloud-messaging-part-1-9062f2a57555
+1. Shared Preferences Task. Save the status of a checkbox.
+2.  Android Room Database Example – Building a Todo App -  https://www.simplifiedcoding.net/android-room-database-example/
+3. Send Notification On button Click
+4. Use google map and show the current location - https://www.techotopia.com/index.php/An_Android_8_Notifications_Kotlin_Tutorial
+5. Create Android Push Notification Easily with Kotlin and Firebase Cloud Messaging  -https://medium.com/@lobothijau/create-android-push-notification-easily-with-kotlin-and-firebase-cloud-messaging-part-1-9062f2a57555
 
 # 2019/12/14
 #### Flutter
