@@ -1,24 +1,22 @@
-package com.example.mytodo;
+package com.example.mytodo
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import java.io.Serializable;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
-class Task:Serializable {
+data class Task (
     /*
    * Getters and Setters
    * */
     @PrimaryKey(autoGenerate = true)
-    var id:Int = 0
+    var id:Int = 0,
     @ColumnInfo(name = "task")
-    lateinit var task:String
+    val task:String,
     @ColumnInfo(name = "desc")
-    lateinit var desc:String
+    val desc:String,
     @ColumnInfo(name = "finish_by")
-    lateinit var finishBy:String
+    val finishBy:String,
     @ColumnInfo(name = "finished")
-    var isFinished:Boolean = false
-}
+    val isFinished:Boolean = false
+)

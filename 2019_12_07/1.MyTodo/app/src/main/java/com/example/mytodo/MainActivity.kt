@@ -27,14 +27,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTasks() {
-        class GetTasks:AsyncTask<Void, Void, MutableList<Task>>(){
-            override  fun doInBackground(vararg p0: Void?): MutableList<Task> {
-                return DatabaseClient.getInstance(applicationContext).appDatabase.taskDao().all
+        class GetTasks:AsyncTask<Void, Void, List<Task>>(){
+            override  fun doInBackground(vararg p0: Void?): List<Task> {
+                return DatabaseClient.getInstance(applicationContext).appDatabase.taskDao().getAll
             }
 
-            override fun onPostExecute(result: MutableList<Task>?) {
-                super.onPostExecute(result)
-                var adapter=TasksAdapter(this@MainActivity,result)
+            override fun onPostExecute(results: List<Task>?) {
+                super.onPostExecute(results)
+                var adapter=TasksAdapter(this@MainActivity,results)
                 recyclerView?.adapter=adapter
 
             }

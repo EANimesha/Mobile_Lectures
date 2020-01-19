@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.activity_add_task.*
 
 class AddTaskActivity : AppCompatActivity() {
 
-    private var editTextTask: EditText? = null
-    private var editTextDesc: EditText? = null
-    private  var editTextFinishBy: EditText? = null
+    private lateinit var editTextTask: EditText
+    private lateinit var editTextDesc: EditText
+    private lateinit var editTextFinishBy: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -27,40 +27,36 @@ class AddTaskActivity : AppCompatActivity() {
     }
 
     private fun saveTask() {
-        val sTask:String=editTextTask?.text.toString().trim()
-        val sDesc:String=editTextDesc?.text.toString().trim()
-        val sFinishBy :String=editTextFinishBy?.text.toString().trim()
+        val sTask:String= editTextTask.text.toString().trim()
+        val sDesc:String=editTextDesc.text.toString().trim()
+        val sFinishBy :String=editTextFinishBy.text.toString().trim()
 
         if (sTask.isEmpty()) {
-            editTextTask?.setError("Task required")
-            editTextTask?.requestFocus()
+            editTextTask.setError("Task required")
+            editTextTask.requestFocus()
             return
         }
 
         if (sDesc.isEmpty()) {
-            editTextDesc?.setError("Desc required")
-            editTextDesc?.requestFocus()
+            editTextDesc.setError("Desc required")
+            editTextDesc.requestFocus()
             return
         }
 
         if (sFinishBy.isEmpty()) {
-            editTextFinishBy?.setError("Finish by required")
-            editTextFinishBy?.requestFocus()
+            editTextFinishBy.setError("Finish by required")
+            editTextFinishBy.requestFocus()
             return
         }
 
         class SaveTask: AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg voids: Void?): Void? {
-                var task=Task()
-                task?.task=sTask
-                task?.desc=sDesc
-                task?.finishBy=sFinishBy
-                task?.isFinished=false
-
-//                if (task != null) {
+                var task=Task(task=sTask,
+                        desc=sDesc,
+                        finishBy=sFinishBy,
+                        isFinished=false)
                     DatabaseClient.getInstance(applicationContext).appDatabase.taskDao().insert(task)
 
-//                }
 
                 return null
             }
@@ -75,6 +71,5 @@ class AddTaskActivity : AppCompatActivity() {
         }
         var st=SaveTask()
         st.execute()
-//        Toast.makeText(applicationContext,"$sTask ,$sDesc, $sFinishBy ",Toast.LENGTH_LONG).show()
     }
 }

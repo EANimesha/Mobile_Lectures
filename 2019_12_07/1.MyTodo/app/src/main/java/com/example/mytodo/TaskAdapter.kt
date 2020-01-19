@@ -8,49 +8,42 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TasksAdapter(mCtx:Context, taskList: MutableList<Task>?): RecyclerView.Adapter<TasksAdapter.TasksViewHolder>() {
+class TasksAdapter(mCtx:Context, taskList: List<Task>?): RecyclerView.Adapter<TasksAdapter.TasksViewHolder>() {
     override fun getItemCount(): Int {
         return taskList.size
     }
 
 
-    private val mCtx:Context
-    private val taskList:MutableList<Task>
+    private val mCtx:Context = mCtx
+    private val taskList:List<Task> = taskList!!
 
-    init{
-        this.mCtx = mCtx
-        this.taskList = taskList!!
-    }
     override fun onCreateViewHolder(parent:ViewGroup, viewType:Int):TasksViewHolder {
         val view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_tasks, parent, false)
         return TasksViewHolder(view)
     }
     override fun onBindViewHolder(holder:TasksViewHolder, position:Int) {
-        val t = taskList.get(position)
-        holder.textViewTask.setText(t.task)
-        holder.textViewDesc.setText(t.desc)
-        holder.textViewFinishBy.setText(t.finishBy)
+        val t = taskList[position]
+        holder.textViewTask.text = t.task
+        holder.textViewDesc.text = t.desc
+        holder.textViewFinishBy.text = t.finishBy
         if (t.isFinished)
-            holder.textViewStatus.setText("Completed")
+            holder.textViewStatus.text = "Completed"
         else
-            holder.textViewStatus.setText("Not Completed")
+            holder.textViewStatus.text = "Not Completed"
     }
     inner class TasksViewHolder(itemView:View):RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var textViewStatus:TextView
-        var textViewTask:TextView
-        var textViewDesc:TextView
-        var textViewFinishBy:TextView
+        var textViewStatus:TextView = itemView.findViewById(R.id.textViewStatus)
+        var textViewTask:TextView = itemView.findViewById(R.id.textViewTask)
+        var textViewDesc:TextView = itemView.findViewById(R.id.textViewDesc)
+        var textViewFinishBy:TextView = itemView.findViewById(R.id.textViewFinishBy)
+
         init{
-            textViewStatus = itemView.findViewById(R.id.textViewStatus)
-            textViewTask = itemView.findViewById(R.id.textViewTask)
-            textViewDesc = itemView.findViewById(R.id.textViewDesc)
-            textViewFinishBy = itemView.findViewById(R.id.textViewFinishBy)
             itemView.setOnClickListener(this)
         }
         override fun onClick(view:View) {
-            val task = taskList.get(getAdapterPosition())
+            val task = taskList[adapterPosition]
             val intent = Intent(mCtx, UpdateTaskActivity::class.java)
-            intent.putExtra("task", task)
+            intent.putExtra("task",task.toString())
             mCtx.startActivity(intent)
         }
     }

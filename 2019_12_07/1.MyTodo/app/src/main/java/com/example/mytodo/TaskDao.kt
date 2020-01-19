@@ -10,7 +10,7 @@ import androidx.room.Update
 @Dao
 interface TaskDao {
     @get:Query("SELECT * FROM task")
-    val all:MutableList<Task>
+    val getAll:List<Task>
     @Insert
     fun insert(task:Task)
     @Delete

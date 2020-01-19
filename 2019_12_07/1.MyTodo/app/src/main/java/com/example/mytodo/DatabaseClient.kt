@@ -4,20 +4,18 @@ import android.content.Context
 
 import androidx.room.Room
 
-class DatabaseClient private constructor(mCtx:Context) {
-    private val mCtx:Context = mCtx
-    //our app database object
-    val appDatabase:AppDatabase = Room.databaseBuilder(mCtx, AppDatabase::class.java, "MyToDos").build()
+class DatabaseClient private constructor(mCtx: Context) {
 
-    init{
-        //creating the app database with Room database builder
-        //MyToDos is the name of the database
-    }
+    //our app database object
+    val appDatabase: AppDatabase = Room.databaseBuilder(mCtx, AppDatabase::class.java, "MyToDo1").build()
+
+
     companion object {
-        private var mInstance:DatabaseClient?=null
-        @Synchronized fun getInstance(mCtx:Context):DatabaseClient {
-            if (mInstance == null)
-            {
+        private var mInstance: DatabaseClient? = null
+
+        @Synchronized
+        fun getInstance(mCtx: Context): DatabaseClient {
+            if (mInstance == null) {
                 mInstance = DatabaseClient(mCtx)
             }
             return mInstance as DatabaseClient
